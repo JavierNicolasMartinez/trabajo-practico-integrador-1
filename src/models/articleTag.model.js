@@ -28,7 +28,7 @@ ArticleModel.belongsToMany(TagModel, {
 });
 
 TagModel.belongsToMany(ArticleModel, {
-  through: TaskTagsModel,
+  through: ArticleTagModel,
   foreignKey: "article_id",
   as: "articles",
 });
