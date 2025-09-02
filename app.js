@@ -2,20 +2,14 @@ import express from "express";
 import dotenv from "dotenv";
 
 import { startDB } from "./src/config/database.js";
-// import { UserModel } from "./src/models/user.model.js";
-// import { ProfileModel } from "./src/models/profile.model.js";
-// import { TagModel } from "./src/models/tag.model.js";
-// import { ArticleModel } from "./src/models/article.model.js";
-// import { ArticleTagModel } from "./src/models/articleTag.model.js";
-
-
+import routerUser from "./src/routes/user.routes.js";
 
 dotenv.config();
 
 const app = express();
 const PORT = process.env.PORT;
 app.use(express.json());
-
+app.use("/api", routerUser);
 
 app.listen(PORT, async () => {
   await startDB();
