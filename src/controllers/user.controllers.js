@@ -1,5 +1,6 @@
 import { UserModel } from "../models/user.model.js";
 import { ProfileModel } from "../models/profile.model.js";
+import { ArticleModel } from "../models/article.model.js";
 
 export const createUser = async (req, res) => {
   const { username, email, password, role } = req.body;
@@ -32,6 +33,7 @@ export const updateUser = async (req, res) => {
   }
 };
 
+//SOLO ADMIN
 export const usersAll = async (req, res) => {
   try {
     const usuarios = await UserModel.findAll({
@@ -55,15 +57,16 @@ export const usersAll = async (req, res) => {
   }
 };
 
+//SOLO ADMIN
 export const userId = async (req, res) => {
   try {
     const usuario = await UserModel.findByPk(req.params.id, {
       attributes: { exclude: ["password"] },
       include: [
         {
-          model: ProfileModel,
+          model: ArticleModel,
           attributes: { exclude: ["user_id", "id"] },
-          as: "profile",
+          as: "articles",
         },
       ],
     });
@@ -76,6 +79,7 @@ export const userId = async (req, res) => {
   }
 };
 
+//SOLO ADMIN
 export const deleteUser = async (req, res) => {
   try {
     const deleted = await UserModel.destroy({ where: { id: req.params.id } });
