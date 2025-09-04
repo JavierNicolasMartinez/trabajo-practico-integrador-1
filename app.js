@@ -5,12 +5,20 @@ import routerUser from "./src/routes/user.routes.js";
 // import routerProfile from "./src/routes/profile.routes.js";
 import routerArticle from "./src/routes/article.routes.js";
 import authRoutes from "./src/routes/auth.routes.js";
+import cookieParser from "cookie-parser";
+import cors from "cors";
+
 
 dotenv.config();
 
 const app = express();
 const PORT = process.env.PORT;
 app.use(express.json());
+app.use(cors({
+  origin: "http://localhost:5173",
+  credentials: true
+}))
+app.use(cookieParser());
 app.use("/api", routerUser);
 app.use("/api", routerArticle);
 app.use("/api", authRoutes);

@@ -1,16 +1,17 @@
 import { ArticleModel } from "../models/article.model.js";
 
 export const articleCreate = async (req, res) => {
-  const { title, content, excerpt, status, user_id } = req.body;
+  
   try {
+    const data = req.data;
     const article = await ArticleModel.create({
-      title,
-      content,
-      excerpt,
-      status,
-      user_id,
+      title: data.title,
+      content: data.content,
+      excerpt: data.excerpt,
+      status: data.status,
+      user_id: req.user.id
     });
-    res.status(201).json({ Message: "El artículo fue creado con exito" });
+    res.status(201).json({ Message: "El artículo fue creado con exito" }, article);
   } catch (error) {
     res.status(500).json({ Error: error.message });
   }
