@@ -1,7 +1,8 @@
 import { matchedData } from "express-validator";
 import { ProfileModel } from "../models/profile.model.js";
 import { UserModel } from "../models/user.model.js";
-import { hashPassword } from "../helpers/bcrypt.helper.js";
+import { comparePassword, hashPassword } from "../helpers/bcrypt.helper.js";
+import { generateToken } from "../helpers/jwt.helper.js";
 
 export const register = async (req, res) => {
   try {
@@ -33,6 +34,40 @@ export const register = async (req, res) => {
       .json({ message: "Error al registrar usuario", error });
   }
 };
+
+export const login = async (req, res) => {
+  const { username, password } = req.body;
+  // 1. Buscar usuario en la base de datos
+  const user = await UserModel.findOne({
+    where: { username }, // Solo buscamos por username
+    include: {
+      model: ProfileModel,
+      attributes: ["first_name", "last_name"],
+      as: "profile",
+    },
+  });
+  if (!user) {
+    return res.status(401).json({ message: "Credenciales inválidas" });
+  }
+  // 2. Comparar contraseña ingresada con hash almacenado
+  const validPassword = await comparePassword(password, user.password);
+  if (!validPassword) {
+    return res.status(401).json({ message: "Credenciales inválidas" });
+  }
+  // 3. Si la contraseña es correcta, generar JWT
+  const token = generateToken({
+    id: user.id,
+    name: user.profile.first_name,
+    lastname: user.profile.last_name,
+    role: user.role,
+  });
+  res.cookie("token", token, {
+    httpOnly: true,
+    maxAge: 1000 * 60 * 60, // 1 hora
+  });
+  return res.json({ message: "Login exitoso" });
+};
+
 // export const createUser = async (req, res) => {
 //   const { username, email, password, role } = req.body;
 //   try {
