@@ -21,7 +21,8 @@ routerUser.post(
   aplicarValidaciones,
   createUser
 );
-routerUser.get("/users/:id", getIdUserValidation, aplicarValidaciones, userId);
+// ,auth, verifyuser
+routerUser.get("/users/:id" ,getIdUserValidation, aplicarValidaciones, userId);
 routerUser.get("/users", usersAll);
 routerUser.put(
   "/users/:id",
