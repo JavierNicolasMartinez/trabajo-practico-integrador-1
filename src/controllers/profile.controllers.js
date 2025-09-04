@@ -1,23 +1,23 @@
 import { ProfileModel } from "../models/profile.model.js";
 import { UserModel } from "../models/user.model.js";
 
-export const profileCreate = async (req, res) => {
-  const { first_name, last_name, biography, avatar_url, birth_date } = req.body;
-  try {
-    const profile = await ProfileModel.create({
-      first_name,
-      last_name,
-      biography,
-      avatar_url,
-      birth_date,
-    });
-    res
-      .status(201)
-      .json({ Message: "El perfil del usuario fue creado con éxito" });
-  } catch (error) {
-    res.status(500).json({ Error: error.message });
-  }
-};
+// export const profileCreate = async (req, res) => {
+//   const { first_name, last_name, biography, avatar_url, birth_date } = req.body;
+//   try {
+//     const profile = await ProfileModel.create({
+//       first_name,
+//       last_name,
+//       biography,
+//       avatar_url,
+//       birth_date,
+//     });
+//     res
+//       .status(201)
+//       .json({ Message: "El perfil del usuario fue creado con éxito" });
+//   } catch (error) {
+//     res.status(500).json({ Error: error.message });
+//   }
+// };
 
 export const profileUpdate = async (req, res) => {
   const { first_name, last_name, biography, avatar_url, birth_date } = req.body;

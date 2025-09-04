@@ -1,7 +1,7 @@
 import { body, param } from "express-validator";
 import { ArticleModel } from "../../models/article.model.js";
 import { UserModel } from "../../models/user.model.js";
-import { Op } from "sequelize";
+
 
 export const createArticleValidation = [
   body("title")

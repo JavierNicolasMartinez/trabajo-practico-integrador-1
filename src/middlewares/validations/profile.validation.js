@@ -39,13 +39,16 @@ export const createProfileValidation = [
     .withMessage("El avatar debe ser un URL valido"),
 
   body("birth_date")
+    .optional()
     .trim()
     .notEmpty()
     .withMessage("El campo de cumpleaños debe estar completo")
-    .isDate()
+    .isISO8601()
+    // .isDate()
     .withMessage("El cumpleaños debe estar en formato fecha"),
 
   body("user_id")
+    .optional()
     .trim()
     .isInt()
     .withMessage("El id de user debe ser un entero")

@@ -1,17 +1,22 @@
-export const generateToken = (user) => {
-  const token = jwt.sign(
-    {
-      id: user.id,
-      username: user.username,
-    },
-    "s3cr3t0",
-    {
+import dotenv from "dotenv";
+import jwt from "jsonwebtoken";
+dotenv.config();
+
+export const generateToken = (payload) => {
+  try {
+    return jwt.sign(payload, process.env.JWT_SECRET, {
       expiresIn: "1h",
-    }
-  );
-  return token;
+    });
+  } catch (error) {
+    throw new Error("Error generando el token" + error.message);
+  }
 };
 
+// Verificar token JWT
 export const verifyToken = (token) => {
-  return decoded;
+  try {
+    return jwt.verify(token, process.env.JWT_SECRET);
+  } catch (error) {
+    throw new Error("Error verificando el token: " + error.message);
+  }
 };

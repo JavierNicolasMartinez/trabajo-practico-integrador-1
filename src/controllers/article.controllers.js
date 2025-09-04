@@ -1,4 +1,3 @@
-import { rtrim } from "validator";
 import { ArticleModel } from "../models/article.model.js";
 
 export const articleCreate = async (req, res) => {

@@ -2,20 +2,20 @@ import { UserModel } from "../models/user.model.js";
 import { ProfileModel } from "../models/profile.model.js";
 import { ArticleModel } from "../models/article.model.js";
 
-export const createUser = async (req, res) => {
-  const { username, email, password, role } = req.body;
-  try {
-    const user = await UserModel.create({
-      username,
-      email,
-      password,
-      role,
-    });
-    res.status(201).json({ Message: "User creado con exito." });
-  } catch (error) {
-    res.status(500).json({ Error: error.message });
-  }
-};
+// export const createUser = async (req, res) => {
+//   const { username, email, password, role } = req.body;
+//   try {
+//     const user = await UserModel.create({
+//       username,
+//       email,
+//       password,
+//       role,
+//     });
+//     res.status(201).json({ Message: "User creado con exito." });
+//   } catch (error) {
+//     res.status(500).json({ Error: error.message });
+//   }
+// };
 
 export const updateUser = async (req, res) => {
   const { username, email, password, role } = req.body;
