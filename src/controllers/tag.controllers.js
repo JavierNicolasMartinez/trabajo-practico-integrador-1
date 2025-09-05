@@ -13,6 +13,22 @@ export const createTag = async (req, res) => {
   }
 };
 
+export const updateTag = async (req, res) => {
+  const { name } = req.body;
+  try {
+    const [updated] = await TagModel.update(
+      { name },
+      { where: { id: req.params.id } }
+    );
+    if (updated === 0) {
+      return res.status(404).json({ Message: "Tag no existe" });
+    }
+    res.status(200).json({ Message: "Se actualizo un tag con éxito" });
+  } catch (error) {
+    res.status(500).json({ Message: error.message });
+  }
+};
+
 export const tagsAll = async (req, res) => {
   try {
     const etiquetas = await TagModel.findAll();
@@ -27,7 +43,7 @@ export const tagsAll = async (req, res) => {
   }
 };
 
-export const tagsId = async (req, res) => {
+export const tagId = async (req, res) => {
   try {
     const etiqueta = await TagModel.findByPk(req.params.id, {
       include: [

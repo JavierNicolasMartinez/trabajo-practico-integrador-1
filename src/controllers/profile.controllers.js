@@ -37,7 +37,7 @@ export const profileUpdate = async (req, res) => {
 
 export const profileId = async (req, res) => {
   try {
-    const perfil = await ProfileModel.findByPk(req.params.id, {
+    const perfil = await ProfileModel.findByPk(req.user.id, {
       attributes: { exclude: ["user_id"] },
       include: [
         {

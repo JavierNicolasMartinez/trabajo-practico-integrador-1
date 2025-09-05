@@ -1,8 +1,6 @@
 import { body, param } from "express-validator";
 import { UserModel } from "../../models/user.model.js";
 
-
-
 export const updateUserValidation = [
   param("id")
     .isInt()
@@ -43,6 +41,8 @@ export const updateUserValidation = [
     .isEmail()
     .notEmpty()
     .withMessage("El campo de email no debe estar vacío")
+    .isLength({ max: 100 })
+    .withMessage("El email es demasiado largo")
     .custom(async (value) => {
       const emailUnico = await UserModel.findOne({
         email: value,
@@ -57,7 +57,7 @@ export const updateUserValidation = [
     .trim()
     .notEmpty()
     .withMessage("El campo de password no puede estar vacío")
-    .isLength({ min: 8 })
+    .isLength({ min: 8, max: 255 })
     .withMessage("La contraseña debe tener al menos 8 caracteres")
     .matches(/[A-Z]/)
     .withMessage("La contraseña debe tener al menos una letra mayúscula")
@@ -66,9 +66,8 @@ export const updateUserValidation = [
     .matches(/[0-9]/)
     .withMessage("La contraseña debe tener al menos un número"),
   body("role")
+    .optional()
     .trim()
-    .notEmpty()
-    .withMessage("El campo de role no puede estar vacío")
     .isIn(["user", "admin"])
     .withMessage("El role debe ser 'user' o 'admin'"),
 ];

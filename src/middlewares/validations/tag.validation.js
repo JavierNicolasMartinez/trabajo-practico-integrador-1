@@ -6,6 +6,8 @@ export const createTagValidation = [
     .trim()
     .notEmpty()
     .withMessage("No puede estar vacío el nombre de la etiqueta")
+    .isLength({ min: 2, max: 30 })
+    .withMessage("El nombre debe tener al menos 2 caracteres y maximo 30.")
     .custom(async (value) => {
       try {
         const tagUnica = await TagModel.findOne({ where: { name: value } });
@@ -44,6 +46,8 @@ export const updateTagValidation = [
     .trim()
     .notEmpty()
     .withMessage("No puede estar vacío el nombre de la etiqueta")
+    .isLength({ min: 2, max: 30 })
+    .withMessage("El nombre debe tener al menos 2 caracteres y maximo 30.")
     .custom(async (value) => {
       try {
         const tagUnica = await TagModel.findOne({ where: { name: value } });

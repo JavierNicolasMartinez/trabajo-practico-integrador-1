@@ -83,24 +83,24 @@ export const createProfileValidation = [
 ];
 
 export const updateProfileValidation = [
-  param("id")
-    .isInt()
-    .withMessage("El id del parametro debe ser un entero")
-    .custom(async (id) => {
-      try {
-        const PerfilExistente = await ProfileModel.findByPk(id);
-        if (!PerfilExistente) {
-          return Promise.reject("El perfil no existe");
-        }
-        return true;
-      } catch (error) {
-        console.error("Ocurrio un error con la existencia del perfil", error);
-        return Promise.reject(
-          "Ocurrio un error con la existencia del perfil",
-          error
-        );
-      }
-    }),
+  // param("id")
+  //   .isInt()
+  //   .withMessage("El id del parametro debe ser un entero")
+  //   .custom(async (id) => {
+  //     try {
+  //       const PerfilExistente = await ProfileModel.findByPk(id);
+  //       if (!PerfilExistente) {
+  //         return Promise.reject("El perfil no existe");
+  //       }
+  //       return true;
+  //     } catch (error) {
+  //       console.error("Ocurrio un error con la existencia del perfil", error);
+  //       return Promise.reject(
+  //         "Ocurrio un error con la existencia del perfil",
+  //         error
+  //       );
+  //     }
+  //   }),
   body("first_name")
     .optional()
     .trim()

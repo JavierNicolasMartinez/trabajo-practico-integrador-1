@@ -1,7 +1,6 @@
 import { ArticleModel } from "../models/article.model.js";
 
 export const articleCreate = async (req, res) => {
-  
   try {
     const data = req.data;
     const article = await ArticleModel.create({
@@ -9,9 +8,11 @@ export const articleCreate = async (req, res) => {
       content: data.content,
       excerpt: data.excerpt,
       status: data.status,
-      user_id: req.user.id
+      user_id: req.user.id,
     });
-    res.status(201).json({ Message: "El artículo fue creado con exito" }, article);
+    res
+      .status(201)
+      .json({ Message: "El artículo fue creado con exito" }, article);
   } catch (error) {
     res.status(500).json({ Error: error.message });
   }
@@ -62,9 +63,40 @@ export const articleGetId = async (req, res) => {
   }
 };
 
-export const articlesGetUser = async (req, res) => {};
+export const articlesGetUser = async (req, res) => {
+  try {
+    const articleUserLogin = await UserModel.findByPk(req.user.id, {
+      attributes: { exclude: ["password"] },
+      include: {
+        model: ArticleModel,
+        as: "articles",
+      },
+    });
 
-export const articleGetIdUser = async (req, res) => {};
+    return res.status(200).json(articleUserLogin);
+  } catch (error) {
+    return res.status(500).json({ error: error.message });
+  }
+};
+
+export const articleGetIdUser = async (req, res) => {
+  try {
+    const articleOne = await ArticleModel.findOne({
+      where: {
+        id: id,
+        user_id: req.user.id,
+      },
+    });
+
+    if (!articleOne) {
+      return res.status(404).json({ message: "Artículo no encontrado" });
+    }
+
+    return res.status(200).json(article);
+  } catch (error) {
+    return res.status(500).json({ error: error.message });
+  }
+};
 
 export const articleDelete = async (req, res) => {
   try {
