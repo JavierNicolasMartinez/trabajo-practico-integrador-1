@@ -6,7 +6,7 @@ import {
   getIdProfileValidation,
   updateProfileValidation,
 } from "../middlewares/validations/profile.validation.js";
-import { login, logout, register } from "../controllers/auth.controller.js";
+import { login, logout, register } from "../controllers/auth.controllers.js";
 import { aplicarValidaciones } from "../middlewares/validator.js";
 import { authMiddleware } from "../middlewares/auth.js";
 import { dataValida } from "../middlewares/match.js";

@@ -74,10 +74,9 @@ export const login = async (req, res) => {
 };
 
 export const logout = (req, res) => {
-  res.clearCookie("token"); 
-  return res.json({message: "Logout exitoso"});
+  res.clearCookie("token");
+  return res.json({ message: "Logout exitoso" });
 };
-
 
 // export const createUser = async (req, res) => {
 //   const { username, email, password, role } = req.body;
