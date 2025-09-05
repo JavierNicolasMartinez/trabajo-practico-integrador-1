@@ -9,6 +9,7 @@ import cors from "cors";
 import routerAuth from "./src/routes/auth.routes.js";
 import routerTag from "./src/routes/tag.routes.js";
 import routerArticleTag from "./src/routes/article_tag.routes.js";
+import morgan from "morgan";
 
 dotenv.config();
 
@@ -21,6 +22,7 @@ app.use(
     credentials: true,
   })
 );
+app.use(morgan("dev"));
 app.use(cookieParser());
 app.use("/api", routerUser);
 app.use("/api", routerArticle);

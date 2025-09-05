@@ -2,7 +2,6 @@ import { body, param } from "express-validator";
 import { ArticleModel } from "../../models/article.model.js";
 import { UserModel } from "../../models/user.model.js";
 
-
 export const createArticleValidation = [
   body("title")
     .trim()
@@ -25,6 +24,7 @@ export const createArticleValidation = [
     .isIn(["published", "archived"])
     .withMessage("Status debe ser 'published' o 'archived'"),
   body("user_id")
+    .optional()
     .trim()
     .custom(async (id) => {
       try {
