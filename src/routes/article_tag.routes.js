@@ -12,9 +12,9 @@ import { aplicarValidaciones } from "../middlewares/validator.js";
 import { authMiddleware } from "../middlewares/auth.js";
 import { ownerMiddleware } from "../middlewares/owner.js";
 
-const articleTagRouter = express.Router();
+const routerArticleTag = express.Router();
 
-articleTagRouter.post(
+routerArticleTag.post(
   "/articles-tags",
   authMiddleware,
   ownerMiddleware,
@@ -23,7 +23,7 @@ articleTagRouter.post(
   createArticleTag
 );
 
-articleTagRouter.delete(
+routerArticleTag.delete(
   "/articles-tags/:articleTagId",
   authMiddleware,
   ownerMiddleware,
@@ -32,4 +32,4 @@ articleTagRouter.delete(
   deleteArticleTag
 );
 
-export default articleTagRouter;
+export default routerArticleTag;

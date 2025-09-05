@@ -18,9 +18,9 @@ import { dataValida } from "../middlewares/match.js";
 import { aplicarValidaciones } from "../middlewares/validator.js";
 import { adminMiddleware } from "../middlewares/admin.js";
 
-const tagRouter = express.Router();
+const routerTag = express.Router();
 
-tagRouter.post(
+routerTag.post(
   "/tags",
   authMiddleware,
   adminMiddleware,
@@ -29,9 +29,9 @@ tagRouter.post(
   createTag
 );
 
-tagRouter.get("/tags", authMiddleware, tagsAll);
+routerTag.get("/tags", authMiddleware, tagsAll);
 
-tagRouter.get(
+routerTag.get(
   "/tags/:id",
   authMiddleware,
   adminMiddleware,
@@ -40,7 +40,7 @@ tagRouter.get(
   tagId
 );
 
-tagRouter.put(
+routerTag.put(
   "/tags/:id",
   authMiddleware,
   adminMiddleware,
@@ -50,7 +50,7 @@ tagRouter.put(
   updateTag
 );
 
-tagRouter.delete(
+routerTag.delete(
   "/tags/:id",
   authMiddleware,
   adminMiddleware,
@@ -59,4 +59,4 @@ tagRouter.delete(
   deleteTag
 );
 
-export default tagRouter;
+export default routerTag;

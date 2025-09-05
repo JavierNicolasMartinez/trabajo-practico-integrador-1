@@ -15,8 +15,8 @@ import {
   profileUpdate,
 } from "../controllers/profile.controllers.js";
 
-const authRoutes = express.Router();
-authRoutes.post(
+const routerAuth = express.Router();
+routerAuth.post(
   "/auth/register",
   createUserValidation,
   createProfileValidation,
@@ -24,11 +24,11 @@ authRoutes.post(
   dataValida,
   register
 );
-authRoutes.post("/auth/login", login);
+routerAuth.post("/auth/login", login);
 
-authRoutes.post("/auth/logout", logout);
+routerAuth.post("/auth/logout", logout);
 
-authRoutes.get(
+routerAuth.get(
   "/auth/profile",
   authMiddleware,
   getIdProfileValidation,
@@ -36,7 +36,7 @@ authRoutes.get(
   profileId
 );
 
-authRoutes.put(
+routerAuth.put(
   "/auth/profile",
   authMiddleware,
   updateProfileValidation,
@@ -45,4 +45,4 @@ authRoutes.put(
   profileUpdate
 );
 
-export default authRoutes;
+export default routerAuth;
