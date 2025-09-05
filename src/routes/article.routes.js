@@ -37,7 +37,7 @@ routerArticle.get(
   articleGetId
 );
 
-routerArticle.get("/article/user", aplicarValidaciones, articlesGetUser);
+routerArticle.get("/article/user", authMiddleware, articlesGetUser);
 
 routerArticle.get(
   "/articles/user/:id",
